@@ -49,6 +49,7 @@ public class UserDaoService {
 	}
 	
 	public User deleteById(int id) {
+		//users.removeIf(u -> u.getId().equals(id));
 		Iterator<User> iterator = users.iterator(); 
 		
 		while(iterator.hasNext()) {

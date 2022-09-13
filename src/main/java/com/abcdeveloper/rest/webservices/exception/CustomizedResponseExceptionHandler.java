@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomizedResponseExceptionHandler extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) throws Exception {
+	public final ResponseEntity<ExceptionResponse> handleAllException(Exception ex, WebRequest request) throws Exception {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 		
@@ -23,7 +25,7 @@ public class CustomizedResponseExceptionHandler extends ResponseEntityExceptionH
 	}
 	
 	@ExceptionHandler(UserNotFoundException.class)
-	public final ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) throws Exception {
+	public final ResponseEntity<ExceptionResponse> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) throws Exception {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 		
@@ -32,9 +34,13 @@ public class CustomizedResponseExceptionHandler extends ResponseEntityExceptionH
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
-			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), 
-				ex.getBindingResult().toString());
+			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		StringBuilder error = new StringBuilder();
+		for(FieldError err:ex.getFieldErrors()) {
+			error = error.append(err.getDefaultMessage()).append(" & ");
+		}
+		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), error.deleteCharAt(error.lastIndexOf("&")).toString().trim(), 
+				request.getDescription(false));
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 }

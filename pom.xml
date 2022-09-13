@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.2</version>
+		<version>3.0.0-M4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.abcdeveloper.rest.webservices</groupId>
@@ -14,7 +14,7 @@
 	<name>restful-web-services</name>
 	<description>restful-web-services</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>18</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,15 +44,18 @@
 		<!-- <dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
-		</dependency> -->
+		</dependency>
 		<dependency>
       		<groupId>org.springdoc</groupId>
 	      	<artifactId>springdoc-openapi-ui</artifactId>
 	      	<version>1.6.9</version>
-	   </dependency>
-		
-
-		<dependency>
+	    </dependency> 
+	    <dependency> 
+			<groupId>org.springdoc</groupId> 
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId> 
+			<version>2.0.0-M4</version> 
+		</dependency> -->
+	    <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
@@ -91,5 +94,24 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 </project>

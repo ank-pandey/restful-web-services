@@ -1,4 +1,4 @@
-package com.abcdeveloper.rest.webservices.controller;
+package com.abcdeveloper.rest.webservices.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

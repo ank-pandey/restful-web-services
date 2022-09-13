@@ -6,8 +6,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.net.URI;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abcdeveloper.rest.webservices.bean.User;
 import com.abcdeveloper.rest.webservices.dao.UserDaoService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
